@@ -24,9 +24,13 @@ require "../utils/autoload.php";
         private function insertar(){
             $sql = "INSERT INTO usuario (username,password) VALUES (
             '" . $this -> Nombre . "',
-            '" . $this -> Password . "')";
+            '" . $this -> hashearPassword($this -> Password) . "')";
 
             $this -> conexionBaseDeDatos -> query($sql);
+        }
+
+        private function hashearPassword($password){
+            return password_hash($password,PASSWORD_DEFAULT);
         }
 
         private function actualizar(){
@@ -65,10 +69,18 @@ require "../utils/autoload.php";
         }
 
         public function Autenticar(){
-            $sql = "SELECT * FROM usuario WHERE username = '" . $this -> Nombre . "' AND password = '" . $this -> Password . "'";
+            $sql = "SELECT * FROM usuario WHERE username = '" . $this -> Nombre . "'";
             $resultado = $this -> conexionBaseDeDatos -> query($sql);
-            if($resultado -> num_rows == 0) return false;
-            return true; 
+            if($resultado -> num_rows == 0) {
+                return false;
+            }
+
+            $fila = $resultado -> fetch_all(MYSQLI_ASSOC)[0];
+            return $this -> compararPasswords($fila['password']);
+        }
+
+        private function compararPasswords($passwordHasheado){
+            return password_verify($this -> Password, $passwordHasheado);
         }
 
     }

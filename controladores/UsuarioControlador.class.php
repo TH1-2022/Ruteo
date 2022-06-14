@@ -13,5 +13,12 @@
             }
             return false;
         }
+
+        public static function Alta($usuario,$password){
+            $u = new UsuarioModelo();
+            $u -> Nombre = $usuario;
+            $u -> Password = $password;
+            $u -> Guardar();
+        }
     }
 

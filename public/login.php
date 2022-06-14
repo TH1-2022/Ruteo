@@ -21,8 +21,14 @@
         <input type="submit" value="Iniciar Sesión">
     </form>
 
+    <a href="/formAltaUsuario.php">Crear Usuario</a> <br /><br />
+    
     <?php if(isset($_GET['error']) && $_GET['error'] === "true" ) :?>
         <div style="color: red;">Credenciales invalidas.</div>
+    <?php endif;?>
+
+    <?php if(isset($_GET['creado']) && $_GET['creado'] === "true" ) :?>
+        <div style="color: red;">Usuario Creado</div>
     <?php endif;?>
 </body>
 </html>
