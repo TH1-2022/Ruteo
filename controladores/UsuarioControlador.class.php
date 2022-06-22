@@ -2,22 +2,10 @@
     require "../utils/autoload.php";
 
     class UsuarioControlador {
-        public static function IniciarSesion($usuario,$password){
+        public static function Alta($context){
             $u = new UsuarioModelo();
-            $u -> Nombre = $usuario;
-            $u -> Password = $password;
-            if($u -> Autenticar($usuario,$password)){
-                $_SESSION["autenticado"] = true;
-                $_SESSION["nombreUsuario"] = $u -> Nombre;
-                return true;
-            }
-            return false;
-        }
-
-        public static function Alta($usuario,$password){
-            $u = new UsuarioModelo();
-            $u -> Nombre = $usuario;
-            $u -> Password = $password;
+            $u -> Nombre = $context['post']['usuario'];
+            $u -> Password = $context['post']['password'];
             $u -> Guardar();
         }
     }

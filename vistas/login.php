@@ -2,7 +2,7 @@
     require "../utils/autoload.php";
 
      if(isset($_SESSION['autenticado']))
-        header("Location: /paginaDeInicio.php");
+        header("Location: /");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,20 +15,18 @@
 <body>
     <h1>Fabrica de Chacinados - Bienvenido</h1>
     
-    <form action="/iniciarSesion.php" method="post">
+    <form action="/login" method="post">
         Usuario <input type="text" name="usuario"> <br />
         Password <input type="password" name="password"> <br />
         <input type="submit" value="Iniciar Sesión">
     </form>
 
-    <a href="/formAltaUsuario.php">Crear Usuario</a> <br /><br />
+    <a href="/usuarios/alta">Crear Usuario</a> <br /><br />
     
-    <?php if(isset($_GET['error']) && $_GET['error'] === "true" ) :?>
+    <?php if(isset($parametros['error']) && $parametros['error'] === true ) :?>
         <div style="color: red;">Credenciales invalidas.</div>
     <?php endif;?>
 
-    <?php if(isset($_GET['creado']) && $_GET['creado'] === "true" ) :?>
-        <div style="color: red;">Usuario Creado</div>
-    <?php endif;?>
+    
 </body>
 </html>

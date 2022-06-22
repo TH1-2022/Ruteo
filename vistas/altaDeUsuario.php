@@ -8,7 +8,7 @@
 
 </head>
 <body>
-     <form action="/crearUsuario.php" method="post">
+     <form action="/usuario/alta" method="post">
         Usuario <input type="text" name="usuario"> <br />
         Password <input type="password" name="password"> <br />
         <input type="submit" value="Crear Usuario">
