@@ -2,6 +2,8 @@
     require '../utils/autoload.php';
 
     class Routes {
+        private static $Url;
+        private static $Method;
         private static $routes = Array();
         public static function Add($url,$metodo,$funcion){
             array_push(self::$routes,[
@@ -24,8 +26,8 @@
         }
 
         public static function Run(){
-            $Url = $_SERVER['REQUEST_URI'];
-            $Method = strtolower($_SERVER['REQUEST_METHOD']);
+            self::$Url = $_SERVER['REQUEST_URI'];
+            self::$Method = strtolower($_SERVER['REQUEST_METHOD']);
             $resultado = self::findRoute($Url,$Method);
             if($resultado['notFound']) PageNotFound();
             if($resultado['tipo'] === "vista") self::cargarVista($resultado['vista']);
@@ -52,10 +54,10 @@
         }
 
         private static function evaluarRuta($route){
-            if($Url === $route['url'] && $Method === $route['metodo'] && $route['tipo'] === 'controlador')
+            if(self::$Url === $route['url'] && self::$Method === $route['metodo'] && $route['tipo'] === 'controlador')
                 return true;
 
-            if($Url === $route['url'] && $Method === "get" && $route['tipo'] === "vista")
+            if(self::$Url === $route['url'] && self::$Method === "get" && $route['tipo'] === "vista")
                 return true;
             return false;
         }
